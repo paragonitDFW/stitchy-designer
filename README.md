@@ -1,1 +1,1 @@
-# Big-Stitchy-Designer
+# Stitchy Designer
