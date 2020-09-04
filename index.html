@@ -72,10 +72,11 @@
                         "source": "https://cdn.ssactivewear.com/Images/Color/"+productImage+".jpg",
                         "title": "Base",
                         "parameters": {
-                          "left": 318,
-                          "top": 311,
+						  "draggable": false,
+						  "autoCenter": true,
                           "colors": "#ededed",
-                          "price": 5
+						  "price": 5,
+						  "boundingBox": "clipping"
                         }
                       }
                     ]
@@ -83,7 +84,8 @@
                 ]
               ], 
 		    		designsJSON: 'json/designs.json', //see JSON folder for designs sorted in categories
-		    		stageWidth: 1200,
+		    		stageWidth: 500,
+		    		stageHeight: 500,
 		    		editorMode: false,
 		    		smartGuides: true,
 		    		fonts: [
@@ -94,7 +96,7 @@
 			    		{name: 'Lobster', url: 'google'}
 			    	],
 		    		customTextParameters: {
-			    		colors: false,
+			    		colors: true,
 			    		removable: true,
 			    		resizable: true,
 			    		draggable: true,
@@ -182,28 +184,7 @@
 
     <body>
     	<div id="main-container">
-          	<h3 id="clothing">Big Stitchy</h3>
           	<div id="clothing-designer" class="fpd-container fpd-shadow-2 fpd-topbar fpd-tabs fpd-tabs-side fpd-top-actions-centered fpd-bottom-actions-centered fpd-views-inside-left"> </div>
-		  	<br />
-
-		  	<div class="fpd-clearfix" style="margin-top: 30px;">
-			  	<div class="api-buttons fpd-container fpd-left">
-				  	<a href="#" id="print-button" class="fpd-btn" style="display: none;">Print</a>
-				  	<a href="#" id="image-button" class="fpd-btn" style="display: none;">Create Image</a>
-				  	<a href="#" id="checkout-button" class="fpd-btn" style="display: none;">Checkout</a>
-				  	<a href="#" id="recreation-button" class="fpd-btn" style="display: none;">Recreate product</a>
-			  	</div>
-			  	<div class="fpd-right">
-				  	<span class="price badge badge-inverse"><span id="thsirt-price"></span> $</span>
-			  	</div>
-		  	</div>
-
-		  	<p class="fpd-container" style="display: none;">
-			  	Only working on a webserver:<br />
-			  	<span class="fpd-btn" id="save-image-php">Save image with php</span>
-			  	<span class="fpd-btn" id="send-image-mail-php">Send image to mail</span>
-		  	</p>
-
     	</div>
     </body>
 </html>
