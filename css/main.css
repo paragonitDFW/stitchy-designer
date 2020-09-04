@@ -68,6 +68,15 @@ body {
   text-align: right;
 }
 
+#stitchy-action p.price-ss {
+  font-weight: 600;
+  letter-spacing: 1px;
+  font-size: 15px;
+  font-family: 'Lato';
+  text-align: right;
+  color: #c0392b;
+}
+
 #stitchy-action .fpd-btn {
   display: block;
   text-align: center;
