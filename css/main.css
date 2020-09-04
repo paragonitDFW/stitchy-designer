@@ -2,12 +2,13 @@
 
 body {
 	font-family: 'Lato';
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
 }
 
-#main-container {
-	margin: 40px auto;
-	width: 1200px;
-	max-width: 100%;
+#clothing-designer {
+	margin: 2rem auto;
 }
 
 .api-buttons > a {
