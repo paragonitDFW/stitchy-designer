@@ -17,6 +17,9 @@ body {
 	line-height: 26px !important;
 }
 
+.fpd-navigation {
+  display: none !important;
+}
 
 /* Stitchy Actions */
 
