@@ -117,8 +117,9 @@
 						'top': ['download','print', 'snap', 'preview-lightbox'],
 						'right': ['magnify-glass', 'zoom', 'reset-product', 'qr-code', 'ruler'],
 						'bottom': ['undo','redo'],
-						'left': ['manage-layers','info','save','load']
-					}
+						'left': ['manage-layers']
+           },
+           mainBarModules: ['images', 'text', 'manage-layers']
 	    		},
 
 	    	yourDesigner = new FancyProductDesigner($yourDesigner, pluginOpts);
@@ -184,7 +185,19 @@
 
     <body>
     	<div id="main-container">
-          	<div id="clothing-designer" class="fpd-container fpd-shadow-2 fpd-topbar fpd-tabs fpd-tabs-side fpd-top-actions-centered fpd-bottom-actions-centered fpd-views-inside-left"> </div>
+            <div id="clothing-designer" class="fpd-container fpd-shadow-2 fpd-topbar fpd-tabs fpd-tabs-side fpd-top-actions-centered fpd-bottom-actions-centered fpd-views-inside-left"></div>
+            <div id="stitchy-action" class="fpd-shadow-2">
+              <div class="navigation">
+                <div><span class="fpd-icon-photo"></span><span>Add Image</span></div>
+                <div><span class="fpd-icon-text-secondary"></span><span>Add Text</span></div>
+              </div>
+              <p class="fpd-container">
+                <input type="text" placeholder="Name" />
+                <input type="text" placeholder="Description" />
+                <input type="text" placeholder="Price" />
+                <span class="fpd-btn" id="next">NEXT</span>
+              </p>
+            </div>
     	</div>
     </body>
 </html>

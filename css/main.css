@@ -7,10 +7,6 @@ body {
 	box-sizing: border-box;
 }
 
-#clothing-designer {
-	margin: 2rem auto;
-}
-
 .api-buttons > a {
 	margin: 0 5px 0 0 !important;
 	text-decoration: none !important;
@@ -19,4 +15,43 @@ body {
 .price {
 	font-size: 25px !important;
 	line-height: 26px !important;
+}
+
+/* Stitchy Actions */
+
+#main-container {
+  max-width: 810px;
+  margin: 0 auto;
+  margin-top: 50px;
+}
+
+#clothing-designer {
+  float: left;
+}
+
+#stitchy-action {
+  width: 300px;
+  float: left;
+  box-sizing: border-box;
+  padding: 30px;
+  padding-bottom: 0;
+  margin-left: 10px;
+}
+
+#stitchy-action .navigation div {
+  background-color: #34495e;
+  color: #fff;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-bottom: 10px;
+  text-transform: lowercase;
+}
+
+#stitchy-action .navigation span {
+  margin-right: 10px;
+}
+
+#stitchy-action input {
+  margin-bottom: 10px;
 }
