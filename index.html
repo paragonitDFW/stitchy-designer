@@ -49,7 +49,9 @@
 
     const product = getUrlParam('product');
     const token = getUrlParam('token');
-    const productImage = getUrlParam('image');
+    let productImage = getUrlParam('image');
+
+    if ( productImage == '' ) { productImage = '65594_f_fm'; }
 
   </script>
 
@@ -117,7 +119,7 @@
 						'top': ['download','print', 'snap', 'preview-lightbox'],
 						'right': ['magnify-glass', 'zoom', 'reset-product', 'qr-code', 'ruler'],
 						'bottom': ['undo','redo'],
-						'left': ['manage-layers']
+						'left': ['manage-layers','save']
            },
            mainBarModules: ['images', 'text', 'manage-layers']
 	    		},
