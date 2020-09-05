@@ -1,0 +1,130 @@
+function getUrlVars() {
+    var vars = {};
+    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+        vars[key] = value;
+    });
+    return vars;
+}
+
+function getUrlParam(parameter){
+    let urlparameter;
+    urlparameter = getUrlVars()[parameter];
+    if ( urlparameter == null ) {
+        return 0;
+    }
+    return urlparameter;
+}
+
+const product = getUrlParam('product');
+const token = getUrlParam('token');
+let productImage = getUrlParam('image');
+
+if (productImage === '') {
+    productImage = '65594_f_fm';
+};
+
+jQuery(document).ready(function(){
+    var $yourDesigner = $('#clothing-designer'), pluginOpts = {
+        productsJSON: [[{
+            "elements": [{
+                "type": "image",
+                "source": "https://cdn.ssactivewear.com/Images/Color/"+productImage+".jpg",
+                "title": "Base",
+                "parameters": {
+                    "draggable": false,
+                    "autoCenter": true,
+                    "colors": "#ededed",
+                    "price": 5
+                }
+            }]
+        }]],
+        designsJSON: 'json/designs.json', //see JSON folder for designs sorted in categories
+        stageWidth: 500,
+        stageHeight: 500,
+        editorMode: false,
+        smartGuides: false,
+        fonts: [
+            {name: 'Helvetica'},
+            {name: 'Times New Roman'},
+            {name: 'Pacifico', url: 'Enter_URL_To_Pacifico_TTF'},
+            {name: 'Arial'},
+            {name: 'Lobster', url: 'google'}
+        ],
+        customTextParameters: {
+            colors: true,
+            removable: true,
+            resizable: true,
+            draggable: true,
+            rotatable: true,
+            autoCenter: true,
+            boundingBox: "Base"
+        },
+        customImageParameters: {
+            draggable: true,
+            removable: true,
+            resizable: true,
+            rotatable: true,
+            colors: '#000',
+            autoCenter: true,
+            boundingBox: "Base"
+        },
+        actions:  {
+            'top': ['download','print', 'snap', 'preview-lightbox'],
+            'right': ['magnify-glass', 'zoom', 'reset-product', 'qr-code', 'ruler'],
+            'bottom': ['undo','redo'],
+            'left': ['manage-layers','save']
+        },
+        mainBarModules: ['images', 'text', 'manage-layers']
+    },
+    yourDesigner = new FancyProductDesigner($yourDesigner, pluginOpts);
+
+    //print button
+    $('#print-button').click(function(){
+        yourDesigner.print();
+        return false;
+    });
+
+    //create an image
+    $('#image-button').click(function(){
+        var image = yourDesigner.createImage();
+        return false;
+    });
+
+    //checkout button with getProduct()
+    $('#checkout-button').click(function(){
+        var product = yourDesigner.getProduct();
+        console.log(product);
+        return false;
+    });
+
+    //event handler when the price is changing
+    $yourDesigner.on('priceChange', function(evt, price, currentPrice) {
+        $('#thsirt-price').text(currentPrice);
+    });
+
+    //save image on webserver
+    $('#save-image-php').click(function() {
+        yourDesigner.getProductDataURL(function(dataURL) {
+            $.post( "php/save_image.php", { base64_image: dataURL} );
+        });
+    });
+
+    //send image via mail
+    $('#send-image-mail-php').click(function() {
+        yourDesigner.getProductDataURL(function(dataURL) {
+            $.post( "php/send_image_via_mail.php", { base64_image: dataURL} );
+        });
+    });
+
+    $.ajax({
+        url: "https://api.bigstitchy.com/api/accounts/attachments",
+        type: "GET",
+        headers: { 
+        Authorization: `Bearer ${token}`
+        },
+            success: function(data) {
+            console.log(data);
+            window.localStorage.setItem('clothing-designer', JSON.stringify(data));
+        }
+    });
+});

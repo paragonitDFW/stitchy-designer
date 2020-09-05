@@ -18,7 +18,7 @@ body {
 }
 
 .fpd-navigation {
-  display: none !important;
+  display: none;
 }
 
 /* Stitchy Actions */
@@ -149,4 +149,18 @@ input:checked + .slider:before {
 
 .slider.round:before {
   border-radius: 50%;
+}
+
+/* cover guide lines */
+.fpd-view-stage {
+  background-color: #fff;
+}
+
+.fpd-topbar .fpd-navigation {
+  display: flex;
+  height: auto !important;
+  flex-direction: column;
+  position: absolute;
+  left: 510px;
+  width: 300px;
 }
