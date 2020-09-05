@@ -1,3 +1,65 @@
+// Dynamic referencing of DOM : BEGIN
+// Note: this should be use because elements of Fancy Product Designer is dynamycally rendered
+
+let saveBtn;
+let addImageBtn;
+let addTextBtn;
+let manageLayersBtn;
+// Callback function to execute when mutations are observed
+const callback = (mutationsList, observer) => {
+    // Use traditional 'for loops' for IE 11 // FIXED THIS FOR LOOP IN THE NEXT VERSION
+    for(let mutation of mutationsList) {
+        if (mutation.type === 'childList') {
+            if(!document.querySelector('[data-action=save]')) {
+                return;
+            } else {
+                // set download name with the email name
+                saveBtn = document.querySelector('[data-action=save]');
+            }
+            if(!document.querySelector('[data-module=text]')) {
+                return;
+            } else {
+                // set download name with the email name
+                addTextBtn = document.querySelector('[data-module=text]');
+            }
+            if(!document.querySelector('[data-module=images]')) {
+                return;
+            } else {
+                // set download name with the email name
+                addImageBtn = document.querySelector('[data-module=images]');
+            }
+            if(!document.querySelector('[data-module=manage-layers]')) {
+                return;
+            } else {
+                // set download name with the email name
+                manageLayersBtn = document.querySelector('[data-module=manage-layers]');
+            }
+        }
+    }
+};
+// Create an observer instance linked to the callback function
+const observer = new MutationObserver(callback);
+// Start observing the target node for configured mutations
+observer.observe(document.body, {childList: true});
+
+// Dynamic referencing of DOM : END
+
+document.querySelector('#next').addEventListener('click', () => {
+    saveBtn.click()
+})
+
+document.querySelector('#add-text').addEventListener('click', () => {
+    addTextBtn.click()
+})
+
+document.querySelector('#add-image').addEventListener('click', () => {
+    addImageBtn.click()
+})
+
+document.querySelector('#manage-layers').addEventListener('click', () => {
+    manageLayersBtn.click()
+})
+
 function getUrlVars() {
     var vars = {};
     var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
