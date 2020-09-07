@@ -58,7 +58,7 @@ document.querySelector('#next').addEventListener('click', () => {
     }
 
     titleInput.classList.remove('required')
-    priceText.classList.remove('required')
+    priceInput.classList.remove('required')
     document.querySelector("body > div.fpd-modal-internal.fpd-modal-overlay > div > div.fpd-modal-content > input[type=text]").value = titleInput.value;
 
     document.querySelector("body > div.fpd-modal-internal.fpd-modal-overlay > div > div.fpd-modal-content > span").click();
