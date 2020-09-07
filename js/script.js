@@ -57,9 +57,9 @@ document.querySelector('#next').addEventListener('click', () => {
         return
     }
 
-    titleText.classList.remove('required')
+    titleInput.classList.remove('required')
     priceText.classList.remove('required')
-    document.querySelector("body > div.fpd-modal-internal.fpd-modal-overlay > div > div.fpd-modal-content > input[type=text]").value = titleText.value;
+    document.querySelector("body > div.fpd-modal-internal.fpd-modal-overlay > div > div.fpd-modal-content > input[type=text]").value = titleInput.value;
 
     document.querySelector("body > div.fpd-modal-internal.fpd-modal-overlay > div > div.fpd-modal-content > span").click();
 })
