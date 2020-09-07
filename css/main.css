@@ -164,3 +164,7 @@ input:checked + .slider:before {
 body > div.fpd-modal-internal.fpd-modal-overlay {
   display: none !important;
 }
+
+.fpd-container input[type=text].required {
+  border-color: red !important;
+}

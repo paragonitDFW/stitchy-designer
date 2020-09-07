@@ -43,11 +43,23 @@ const observer = new MutationObserver(callback);
 observer.observe(document.body, {childList: true});
 
 // Dynamic referencing of DOM : END
-
+const titleInput = document.querySelector("#title");
+const priceInput = document.querySelector("#price");
 document.querySelector('#next').addEventListener('click', () => {
     saveBtn.click()
-    if(document.querySelector("#title").value === "") return console.log('Product title is required')
-    document.querySelector("body > div.fpd-modal-internal.fpd-modal-overlay > div > div.fpd-modal-content > input[type=text]").value =document.querySelector("#title").value;
+    if(titleInput.value === "" | priceInput.value === "") {
+        if(titleInput.value === "") {
+            titleInput.classList.add('required')
+        }
+        if(priceInput.value === "") {
+            priceInput.classList.add('required')
+        }
+        return
+    }
+
+    titleText.classList.remove('required')
+    priceText.classList.remove('required')
+    document.querySelector("body > div.fpd-modal-internal.fpd-modal-overlay > div > div.fpd-modal-content > input[type=text]").value = titleText.value;
 
     document.querySelector("body > div.fpd-modal-internal.fpd-modal-overlay > div > div.fpd-modal-content > span").click();
 })
@@ -189,9 +201,6 @@ jQuery(document).ready(function(){
         Authorization: `Bearer ${token}`
         },
             success: function(data) {
-            data.forEach(d => {
-                console.log(d.title);
-            })
             window.localStorage.setItem('clothing-designer', JSON.stringify(data));
         }
     });
