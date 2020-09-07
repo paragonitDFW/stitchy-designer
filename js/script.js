@@ -45,6 +45,8 @@ observer.observe(document.body, {childList: true});
 // Dynamic referencing of DOM : END
 const titleInput = document.querySelector("#title");
 const priceInput = document.querySelector("#price");
+const modal = document.querySelector(".modal");
+const closeModal = document.querySelectorAll(".close-modal");
 document.querySelector('#next').addEventListener('click', () => {
     saveBtn.click()
     if(titleInput.value === "" | priceInput.value === "") {
@@ -62,6 +64,8 @@ document.querySelector('#next').addEventListener('click', () => {
     document.querySelector("body > div.fpd-modal-internal.fpd-modal-overlay > div > div.fpd-modal-content > input[type=text]").value = titleInput.value;
 
     document.querySelector("body > div.fpd-modal-internal.fpd-modal-overlay > div > div.fpd-modal-content > span").click();
+
+    modal.classList.add('show');
 })
 
 document.querySelector('#add-text').addEventListener('click', () => {
@@ -74,6 +78,12 @@ document.querySelector('#add-image').addEventListener('click', () => {
 
 document.querySelector('#manage-layers').addEventListener('click', () => {
     manageLayersBtn.click()
+})
+
+closeModal.forEach(closeM => {
+    closeM.addEventListener('click', () => {
+        modal.classList.remove('show')
+    })
 })
 
 function getUrlVars() {
