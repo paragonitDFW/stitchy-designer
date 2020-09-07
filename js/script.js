@@ -46,6 +46,8 @@ observer.observe(document.body, {childList: true});
 
 document.querySelector('#next').addEventListener('click', () => {
     saveBtn.click()
+    document.querySelector("body > div.fpd-modal-internal.fpd-modal-overlay > div > div.fpd-modal-content > input[type=text]").value =document.querySelector("#title").value;
+    document.querySelector("body > div.fpd-modal-internal.fpd-modal-overlay > div > div.fpd-modal-content > span").click();
 })
 
 document.querySelector('#add-text').addEventListener('click', () => {
@@ -185,7 +187,9 @@ jQuery(document).ready(function(){
         Authorization: `Bearer ${token}`
         },
             success: function(data) {
-            console.log(data);
+            data.forEach(d => {
+                console.log(d.title);
+            })
             window.localStorage.setItem('clothing-designer', JSON.stringify(data));
         }
     });

@@ -160,3 +160,7 @@ input:checked + .slider:before {
   height: 300px;
   top: 50px;
 }
+
+body > div.fpd-modal-internal.fpd-modal-overlay {
+  display: none !important;
+}
