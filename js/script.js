@@ -147,8 +147,8 @@ jQuery(document).ready(function(){
             boundingBox: "Base"
         },
         actions:  {
-            'top': ['download','print', 'snap', 'preview-lightbox'],
-            'right': ['magnify-glass', 'zoom', 'reset-product', 'qr-code', 'ruler'],
+            'top': ['snap', 'preview-lightbox'],
+            'right': ['magnify-glass', 'zoom', 'reset-product', 'ruler'],
             'bottom': ['undo','redo'],
             'left': ['manage-layers','save']
         },
