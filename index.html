@@ -27,26 +27,27 @@
           <input type="text" placeholder="Description" name="description" id="description" />
           <input type="text" placeholder="Price *" name="price" id="price" />
 
-          <div class="publish-product">
+          <!-- <div class="publish-product">
             <span class="publish-product">Make Live On Store</span>
             <label class="switch">
             <input type="checkbox" id="for-shopify">
             <span class="slider"></span>
             </label>
-          </div>
+          </div> -->
 
 
           <p class="price-ss">Cost: $49</p>
 
-          <span class="fpd-btn" id="next">PUBLISH</span>
+          <span class="fpd-btn" id="publish" title="Directly publish this design to your Shopify store" style="cursor: not-allowed;">Publish to Shopify</span>
+          <span class="fpd-btn fpd-secondary" id="next" title="Save to your Big Stitchy account for later use" style="color: gray;">Save to Big Stitchy</span>
         </div>
       </div>
 
     </div>
     <div class="modal close-modal">
       <div class="modal__inner">
-        <p>The product is successfully created!</p>
-        <span class="fpd-btn close-modal">Okay</span>
+        <p id="alert">Success!</p>
+        <span class="fpd-btn close-modal">Close</span>
       </div>
     </div>
 

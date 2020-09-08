@@ -44,14 +44,19 @@ observer.observe(document.body, {childList: true});
 
 // Dynamic referencing of DOM : END
 const titleInput = document.querySelector("#title");
+const descriptionInput = document.querySelector("#description");
 const priceInput = document.querySelector("#price");
 const modal = document.querySelector(".modal");
 const closeModal = document.querySelectorAll(".close-modal");
+const modalAlert = document.querySelector("#alert");
 document.querySelector('#next').addEventListener('click', () => {
     saveBtn.click()
     if(titleInput.value === "" | priceInput.value === "") {
         if(titleInput.value === "") {
             titleInput.classList.add('required')
+        }
+        if(descriptionInput.value === "") {
+            descriptionInput.classList.add('required')
         }
         if(priceInput.value === "") {
             priceInput.classList.add('required')
@@ -60,10 +65,13 @@ document.querySelector('#next').addEventListener('click', () => {
     }
 
     titleInput.classList.remove('required')
+    descriptionInput.classList.remove('required')
     priceInput.classList.remove('required')
     document.querySelector("body > div.fpd-modal-internal.fpd-modal-overlay > div > div.fpd-modal-content > input[type=text]").value = titleInput.value;
 
     document.querySelector("body > div.fpd-modal-internal.fpd-modal-overlay > div > div.fpd-modal-content > span").click();
+
+    modalAlert.innerHTML = "The product is successfully created!"
 
     modal.classList.add('show');
 })
