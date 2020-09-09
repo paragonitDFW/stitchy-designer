@@ -46,6 +46,7 @@ observer.observe(document.body, {childList: true});
 const titleInput = document.querySelector("#title");
 const descriptionInput = document.querySelector("#description");
 const priceInput = document.querySelector("#price");
+const basePrice = document.querySelector("#base-price");
 const modal = document.querySelector(".modal");
 const closeModal = document.querySelectorAll(".close-modal");
 const modalAlert = document.querySelector("#alert");
@@ -114,7 +115,11 @@ function getUrlParam(parameter){
 const product = getUrlParam('product');
 const token = getUrlParam('token');
 let productImage = getUrlParam('image');
+let productTitle = getUrlParam('title');
+let productPrice = parseFloat(getUrlParam('price'));
 
+titleInput.value = decodeURI(productTitle);
+basePrice.innerHTML = productPrice+5;
 if (productImage === '') {
     productImage = '65594_f_fm';
 };
