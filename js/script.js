@@ -71,10 +71,6 @@ document.querySelector('#next').addEventListener('click', () => {
     document.querySelector("body > div.fpd-modal-internal.fpd-modal-overlay > div > div.fpd-modal-content > input[type=text]").value = titleInput.value;
 
     document.querySelector("body > div.fpd-modal-internal.fpd-modal-overlay > div > div.fpd-modal-content > span").click();
-
-    modalAlert.innerHTML = "The product is successfully created!"
-
-    modal.classList.add('show');
 })
 
 document.querySelector('#add-text').addEventListener('click', () => {
@@ -114,22 +110,46 @@ function getUrlParam(parameter){
 
 const product = getUrlParam('product');
 const token = getUrlParam('token');
-let productImage = getUrlParam('image');
-let productTitle = getUrlParam('title');
-let productPrice = parseFloat(getUrlParam('price'));
-
-titleInput.value = decodeURI(productTitle);
-basePrice.innerHTML = productPrice+5;
-if (productImage === '') {
-    productImage = '65594_f_fm';
-};
+const styleID = getUrlParam('style_id');
+let colorSwatchImage = getUrlParam('image') || '65594_f_fm';
 
 jQuery(document).ready(function(){
+
+    // products
+    $.ajax({
+        url: "https://api.bigstitchy.com/api/products?search=headwear",
+        type: "GET",
+        success: function(data) {
+            const prod = data.filter(d => (d.styleID == styleID));
+            window.localStorage.setItem('clothing-designer', JSON.stringify(data));
+            titleInput.value = prod[0].title;
+            tinyMCE.activeEditor.setContent(prod[0].description);
+        }
+    });
+
+    // styles
+    $.ajax({
+        url: `https://api.bigstitchy.com/api/products?style_id=${styleID}`,
+        type: "GET",
+        success: function(data) {
+            basePrice.innerHTML = parseFloat((data[0].salePrice)+5);
+            priceInput.value = basePrice.innerHTML;
+        }
+    });
+    
+    tinymce.init({
+        selector: '#description',
+        toolbar: false,
+        menubar:false,
+        statusbar: false,
+        plugins: [ 'quickbars' ],
+    });
+
     var $yourDesigner = $('#clothing-designer'), pluginOpts = {
         productsJSON: [[{
             "elements": [{
                 "type": "image",
-                "source": "https://cdn.ssactivewear.com/Images/Color/"+productImage+".jpg",
+                "source": "https://cdn.ssactivewear.com/Images/Color/"+colorSwatchImage+".jpg",
                 "title": "Base",
                 "parameters": {
                     "draggable": false,
@@ -215,16 +235,5 @@ jQuery(document).ready(function(){
         yourDesigner.getProductDataURL(function(dataURL) {
             $.post( "php/send_image_via_mail.php", { base64_image: dataURL} );
         });
-    });
-
-    $.ajax({
-        url: "https://api.bigstitchy.com/api/accounts/attachments",
-        type: "GET",
-        headers: { 
-        Authorization: `Bearer ${token}`
-        },
-            success: function(data) {
-            window.localStorage.setItem('clothing-designer', JSON.stringify(data));
-        }
     });
 });

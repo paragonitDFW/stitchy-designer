@@ -216,3 +216,7 @@ body > div.fpd-modal-internal.fpd-modal-overlay {
     transition: all 200ms ease-out;
     background-color: #00d597;
 }
+
+label {
+  font-size: .8rem;
+}
