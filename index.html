@@ -28,9 +28,19 @@
           <textarea id="description" name="description"></textarea><br />
           <label for="price">Price *</label>
           <input type="text" name="price" id="price" />
+          <label for="title">Embroidery Type *</label>
+          <br/>
+          <select name="embroidery-type" id="embroidery-type">
+            <option value="7.5">Flat</option>
+            <option value="9">Puffed</option>
+            <option value="9">Patch</option>
+          </select>
 
-
-          <p class="price-ss">Cost: $<span id="base-price">0</span></p>
+          <p class="price-ss">embroidery: $<span id="base-price-embroidery">7.50</span></p>
+          <p class="price-ss">shipping: $<span id="base-price-shipping">4</span></p>
+          <p class="price-ss">product: $<span id="base-price-product">0</span></p>
+          <p class="price-ss">markup: $<span id="base-price-markup">3</span></p>
+          <p class="price-ss">TOTAL COST: $<span id="base-price-total">0</span></p>
 
           <span class="fpd-btn" id="publish" title="Directly publish this design to your Shopify store">Publish to Shopify</span>
           <span class="fpd-btn fpd-secondary" id="next" title="Save to your Big Stitchy account for later use" style="color: gray;">Save to Big Stitchy</span>

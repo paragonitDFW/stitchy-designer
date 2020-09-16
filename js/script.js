@@ -46,7 +46,7 @@ observer.observe(document.body, {childList: true});
 const titleInput = document.querySelector("#title");
 const descriptionInput = document.querySelector("#description");
 const priceInput = document.querySelector("#price");
-const basePrice = document.querySelector("#base-price");
+const basePrice = document.querySelector("#base-price-product");
 const modal = document.querySelector(".modal");
 const closeModal = document.querySelectorAll(".close-modal");
 const modalAlert = document.querySelector("#alert");
@@ -115,6 +115,27 @@ let colorSwatchImage = getUrlParam('image') || '65594_f_fm';
 
 jQuery(document).ready(function(){
 
+    //set total 
+    function set_price_total(){
+     
+    const price_embroidery = parseFloat($('select#embroidery-type').val());
+    const price_shipping = parseFloat($('#base-price-shipping').text());
+    const price_product = parseFloat($('#base-price-product').text());
+    const price_markup = parseFloat($('#base-price-markup').text());
+    const price_total = $('#base-price-total');
+    const grand_total = price_embroidery + price_shipping + price_product + price_markup;
+
+    price_total.html(grand_total.toFixed(2));
+
+    } // end of set_price_total()
+    
+
+    $('select#embroidery-type').change(function(){
+      
+      set_price_total();
+
+    }); // end of $('select#embroidery-type')
+     
     // publish to shopify
     $('#publish').click(function(){
 
@@ -188,6 +209,7 @@ jQuery(document).ready(function(){
         success: function(data) {
             basePrice.innerHTML = parseFloat((data[0].salePrice)+5);
             priceInput.value = basePrice.innerHTML;
+            set_price_total();
         }
     });
     
