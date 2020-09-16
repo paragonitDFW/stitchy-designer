@@ -115,6 +115,60 @@ let colorSwatchImage = getUrlParam('image') || '65594_f_fm';
 
 jQuery(document).ready(function(){
 
+    // publish to shopify
+    $('#publish').click(function(){
+
+      yourDesigner.getProductDataURL(function(dataURL) {
+        
+        const title = $('#title').val();
+        const descrip = tinyMCE.get('description').getContent();
+        const price = $('#price').val();
+        const image = dataURL;
+        const clean_image = image.split(',').pop();
+
+        const product_data = {
+          "product": {
+            "title": title,
+            "body_html": descrip,
+            "vendor": "Big Stitchy",
+            "product_type": "Custom Big Stitchy",
+            "images": [
+              {
+                "attachment": clean_image
+              }
+            ],
+            "variants": [
+              {
+                "price": price,
+                "presentment_prices": [
+                  {
+                    "price": {
+                      "currency_code": "USD",
+                      "amount": price
+                    },
+                    "compare_at_price": null
+                  }
+                ]
+              }
+            ]
+          }
+        }
+
+        // big stitchy api endpoint to create shopify product
+        $.ajax({
+          url: "http://localhost:8080/api/shop-product-publish",
+          type: "POST",
+          data: { product_data: product_data },
+          success: function(data) {
+            alert('Alrigh! Product successfully created.');
+          }
+        });
+
+      }); // end of yourDesigner.getProductDataURL(function(dataURL)
+
+    }); // end of $('$publish).click();
+
+
     // products
     $.ajax({
         url: "https://api.bigstitchy.com/api/products?search=headwear",
