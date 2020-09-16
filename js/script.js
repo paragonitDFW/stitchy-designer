@@ -156,7 +156,7 @@ jQuery(document).ready(function(){
 
         // big stitchy api endpoint to create shopify product
         $.ajax({
-          url: "http://localhost:8080/api/shop-product-publish",
+          url: "https://api.bigstitchy.com/api/shop-product-publish",
           type: "POST",
           data: { product_data: product_data },
           success: function(data) {
