@@ -123,9 +123,10 @@ jQuery(document).ready(function(){
     const price_product = parseFloat($('#base-price-product').text());
     const price_markup = parseFloat($('#base-price-markup').text());
     const price_total = $('#base-price-total');
-    const grand_total = price_embroidery + price_shipping + price_product + price_markup;
-
-    price_total.html(grand_total.toFixed(2));
+    const grand_total = (price_embroidery + price_shipping + price_product + price_markup).toFixed(2);
+     
+    price_total.html(grand_total);
+    $('#price').val(grand_total);
 
     } // end of set_price_total()
     
