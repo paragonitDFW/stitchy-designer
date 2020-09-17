@@ -119,9 +119,9 @@ jQuery(document).ready(function(){
     function set_price_total(){
      
     const price_embroidery = parseFloat($('select#embroidery-type').val());
-    const price_shipping = parseFloat($('#base-price-shipping').text());
-    const price_product = parseFloat($('#base-price-product').text());
-    const price_markup = parseFloat($('#base-price-markup').text());
+    const price_shipping = parseFloat($('#base-price-shipping').val());
+    const price_product = parseFloat($('#base-price-product').val());
+    const price_markup = parseFloat($('#base-price-markup').val());
     const price_total = $('#base-price-total');
     const grand_total = (price_embroidery + price_shipping + price_product + price_markup).toFixed(2);
      
@@ -208,8 +208,7 @@ jQuery(document).ready(function(){
         url: `https://api.bigstitchy.com/api/products?style_id=${styleID}`,
         type: "GET",
         success: function(data) {
-            basePrice.innerHTML = parseFloat((data[0].salePrice)+5);
-            priceInput.value = basePrice.innerHTML;
+            basePrice.value = parseFloat((data[0].salePrice)+5);
             set_price_total();
         }
     });

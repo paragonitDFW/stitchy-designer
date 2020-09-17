@@ -16,6 +16,21 @@ body {
   display: none;
 }
 
+/* Utility */
+.d-none {
+  display: none;
+}
+
+select#embroidery-type {
+  display: block;
+  width: 100%;
+  border-width: 1px;
+  border-style: solid;
+  padding: 8px 5px !important;
+  font-size: 12px;
+  border-color: rgba(0,0,0,.1)!important;
+}
+
 /* Stitchy Actions */
 
 #main-container {
