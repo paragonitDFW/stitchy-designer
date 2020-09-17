@@ -182,7 +182,8 @@ jQuery(document).ready(function(){
           type: "POST",
           data: { product_data: product_data },
           success: function(data) {
-            alert('Alrigh! Product successfully created.');
+            $('.modal').addClass('show');
+            $('.modal__inner p').text('Store Product Successfully Created!');
           }
         });
 
