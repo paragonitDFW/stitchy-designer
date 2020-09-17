@@ -209,7 +209,7 @@ jQuery(document).ready(function(){
         url: `https://api.bigstitchy.com/api/products?style_id=${styleID}`,
         type: "GET",
         success: function(data) {
-            basePrice.value = parseFloat((data[0].salePrice)+5);
+            basePrice.value = parseFloat((data[0].salePrice));
             set_price_total();
         }
     });
