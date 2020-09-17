@@ -123,6 +123,13 @@ jQuery(document).ready(function(){
     const price_product = parseFloat($('#base-price-product').val());
     const price_markup = parseFloat($('#base-price-markup').val());
     const price_total = $('#base-price-total');
+
+    if ( window.localStorage.getItem('userType') == 'Founder' ) {
+
+      price_markup = 0;
+
+    }
+
     const grand_total = (price_embroidery + price_shipping + price_product + price_markup).toFixed(2);
      
     price_total.html(grand_total);
