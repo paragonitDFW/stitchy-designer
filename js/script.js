@@ -112,16 +112,20 @@ const product = getUrlParam('product');
 const token = getUrlParam('token');
 const styleID = getUrlParam('style_id');
 let colorSwatchImage = getUrlParam('image') || '65594_f_fm';
-
+let grand_total
 jQuery(document).ready(function(){
 
+    let price_embroidery;
     //set total 
     function set_price_total(){
-     
-    const price_embroidery = parseFloat($('select#embroidery-type').val());
-    const price_shipping = parseFloat($('#base-price-shipping').val());
-    const price_product = parseFloat($('#base-price-product').val());
-    const price_markup = parseFloat($('#base-price-markup').val());
+    if($('select#embroidery-type').val() === 'flat') {
+        price_embroidery = 7.5;
+    } else {
+        price_embroidery = 9.5;
+    }
+    const price_shipping = parseFloat(4);
+    const price_product = parseFloat(basePrice.value);
+    const price_markup = parseFloat(3);
     const price_total = $('#base-price-total');
 
     if ( window.localStorage.getItem('userType') == 'Founder' ) {
@@ -130,8 +134,8 @@ jQuery(document).ready(function(){
 
     }
 
-    const grand_total = (price_embroidery + price_shipping + price_product + price_markup).toFixed(2);
-     
+    grand_total = (price_embroidery + price_shipping + price_product + price_markup).toFixed(2);
+    
     price_total.html(grand_total);
     $('#price').val(grand_total);
 
@@ -146,7 +150,6 @@ jQuery(document).ready(function(){
      
     // publish to shopify
     $('#publish').click(function(){
-
       yourDesigner.getProductDataURL(function(dataURL) {
         
         const title = $('#title').val();
