@@ -187,13 +187,16 @@ jQuery(document).ready(function(){
           }
         }
 
+
         // big stitchy api endpoint to create shopify product
         $.ajax({
           url: "https://api.bigstitchy.com/api/shop-products",
           type: "POST",
+          headers: {
+            'Authorization': `Bearer ${token}`
+          },
           data: { key: shop_token, payload: product_data },
           success: function( data ) {
-            console.log( data );
             $('.modal').addClass('show');
             $('.modal__inner p').text('Store Product Successfully Created!');
           }
