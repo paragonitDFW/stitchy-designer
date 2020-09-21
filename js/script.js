@@ -109,6 +109,7 @@ function getUrlParam(parameter){
 }
 
 const product = getUrlParam('product');
+const shop_token = getUrlParam('shop_token');
 const token = getUrlParam('token');
 const styleID = getUrlParam('style_id');
 let colorSwatchImage = getUrlParam('image') || '65594_f_fm';
@@ -188,10 +189,11 @@ jQuery(document).ready(function(){
 
         // big stitchy api endpoint to create shopify product
         $.ajax({
-          url: "https://api.bigstitchy.com/api/shop-product-publish",
+          url: "https://api.bigstitchy.com/api/shop-products",
           type: "POST",
-          data: { product_data: product_data },
-          success: function(data) {
+          data: { key: shop_token, payload: product_data },
+          success: function( data ) {
+            console.log( data );
             $('.modal').addClass('show');
             $('.modal__inner p').text('Store Product Successfully Created!');
           }
