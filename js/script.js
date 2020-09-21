@@ -109,7 +109,7 @@ function getUrlParam(parameter){
 }
 
 const product = getUrlParam('product');
-const shop_token = getUrlParam('shop_token');
+const shop_token = getUrlParam('shop');
 const token = getUrlParam('token');
 const styleID = getUrlParam('style_id');
 let colorSwatchImage = getUrlParam('image') || '65594_f_fm';
