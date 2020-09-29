@@ -165,6 +165,20 @@ jQuery(document).ready(function(){
             "body_html": descrip,
             "vendor": "Big Stitchy",
             "product_type": "Custom Big Stitchy",
+            "metafields": [
+              {
+                "key": "stitchy_product",
+                "value": "true",
+                "value_type": "string",
+                "namespace": "global"
+              },
+              {
+                "key": "stitchy_cost",
+                "value": 30,
+                "value_type": "integer",
+                "namespace": "global"
+              }
+            ],
             "images": [
               {
                 "attachment": clean_image
@@ -190,7 +204,7 @@ jQuery(document).ready(function(){
 
         // big stitchy api endpoint to create shopify product
         $.ajax({
-          url: "https://api.bigstitchy.com/api/shop-products",
+          url: "http://localhost:8080/api/shop-products",
           type: "POST",
           headers: {
             'Authorization': `Bearer ${token}`
@@ -199,6 +213,9 @@ jQuery(document).ready(function(){
           success: function( data ) {
             $('.modal').addClass('show');
             $('.modal__inner p').text('Store Product Successfully Created!');
+          },
+          error: function( data ){
+            console.log(data.responseText);
           }
         });
 
