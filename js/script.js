@@ -50,6 +50,7 @@ const basePrice = document.querySelector("#base-price-product");
 const modal = document.querySelector(".modal");
 const closeModal = document.querySelectorAll(".close-modal");
 const modalAlert = document.querySelector("#alert");
+const costInventory = document.querySelector("#cost-inventory");
 document.querySelector('#next').addEventListener('click', () => {
     saveBtn.click()
     if(titleInput.value === "" | priceInput.value === "") {
@@ -223,15 +224,13 @@ jQuery(document).ready(function(){
 
         function inventoryUpdate( variant_id ){
 
-          const cost = $('#cost-inventory').val();
-
           $.ajax({
             url: "https://api.bigstitchy.com/api/shop-inventory-update",
             type: "POST",
             headers: {
               'Authorization': `Bearer ${token}`
             },
-            data: { key: shop_token, variant_id: variant_id, cost: cost },
+            data: { key: shop_token, variant_id: variant_id, cost: costInventory.value },
             success: function( data ) {
               console.log(JSON.stringify(data));
             },
