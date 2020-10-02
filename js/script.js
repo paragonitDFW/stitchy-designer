@@ -139,6 +139,7 @@ jQuery(document).ready(function(){
     
     price_total.html(grand_total);
     $('#price').val(grand_total);
+    $('#cost-inventory').val(grand_total);
 
     } // end of set_price_total()
     
@@ -211,6 +212,7 @@ jQuery(document).ready(function(){
           },
           data: { key: shop_token, payload: product_data },
           success: function( data ) {
+            inventoryUpdate(data.variants[0].inventory_item_id);
             $('.modal').addClass('show');
             $('.modal__inner p').text('Store Product Successfully Created!');
           },
@@ -218,6 +220,29 @@ jQuery(document).ready(function(){
             console.log(data.responseText);
           }
         });
+
+        function inventoryUpdate( variant_id ){
+
+          const cost = $('#cost-inventory').val();
+
+          $.ajax({
+            url: "https://api.bigstitchy.com/api/shop-inventory-update",
+            type: "POST",
+            headers: {
+              'Authorization': `Bearer ${token}`
+            },
+            data: { key: shop_token, variant_id: variant_id, cost: cost },
+            success: function( data ) {
+              console.log(JSON.stringify(data));
+            },
+            error: function( data ){
+              console.log(data.responseText);
+            }
+          });
+
+        }
+
+
 
       }); // end of yourDesigner.getProductDataURL(function(dataURL)
 
