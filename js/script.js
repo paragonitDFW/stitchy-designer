@@ -153,6 +153,7 @@ jQuery(document).ready(function(){
      
     // publish to shopify
     $('#publish').click(function(){
+      const imageUsed = localStorage.getItem('fpd_uploaded_images'); //images used
       yourDesigner.getProductDataURL(function(dataURL) {
         
         const title = $('#title').val();
