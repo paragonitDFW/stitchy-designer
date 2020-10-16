@@ -298,6 +298,7 @@ jQuery(document).ready(function(){
         stageHeight: 500,
         editorMode: false,
         smartGuides: false,
+        fitImagesInCanvas: true,
         fonts: [
             {name: 'Helvetica'},
             {name: 'Times New Roman'},
@@ -321,7 +322,9 @@ jQuery(document).ready(function(){
             rotatable: true,
             colors: '#000',
             autoCenter: true,
-            boundingBox: "Base"
+            boundingBox: "Base",
+            maxW: 3000,
+            maxH: 3000
         },
         actions:  {
             'top': ['snap', 'preview-lightbox'],
