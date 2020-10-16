@@ -323,8 +323,8 @@ jQuery(document).ready(function(){
             colors: '#000',
             autoCenter: true,
             boundingBox: "Base",
-            maxW: 3000,
-            maxH: 3000
+            maxW: 5000,
+            maxH: 5000
         },
         actions:  {
             'top': ['snap', 'preview-lightbox'],
