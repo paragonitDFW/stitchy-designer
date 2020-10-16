@@ -180,7 +180,6 @@ input:checked + .slider:before {
 
 @media (max-width: 872px) {
   .fpd-draggable-dialog {
-    top: 500px !important;
     right: 0;
     left: auto;
     width: 150px;

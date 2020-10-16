@@ -51,6 +51,7 @@ const modal = document.querySelector(".modal");
 const closeModal = document.querySelectorAll(".close-modal");
 const modalAlert = document.querySelector("#alert");
 const costInventory = document.querySelector("#cost-inventory");
+let sssku;
 document.querySelector('#next').addEventListener('click', () => {
     saveBtn.click()
     if(titleInput.value === "" | priceInput.value === "") {
@@ -258,6 +259,7 @@ jQuery(document).ready(function(){
             window.localStorage.setItem('clothing-designer', JSON.stringify(data));
             titleInput.value = prod[0].title;
             tinyMCE.activeEditor.setContent(prod[0].description);
+            console.log(data);
         }
     });
 
@@ -267,7 +269,9 @@ jQuery(document).ready(function(){
         type: "GET",
         success: function(data) {
             basePrice.value = parseFloat((data[0].salePrice));
+            sssku = data[0].sku
             set_price_total();
+            console.log(data);
         }
     });
     
