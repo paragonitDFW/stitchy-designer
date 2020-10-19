@@ -371,10 +371,11 @@ jQuery(document).ready(function(){
             yourDesigner.loadProduct(design[0].product);
             titleInput.value = design[0].title;
             tinyMCE.activeEditor.setContent(design[0].description);
-            $('#price').val(design[0].cost);
-            basePriceTotal.innerHTML = design[0].cost
-            costInventory.value = design[0].cost_inventory
-            sssku = design[0].sssku
+            $('#price').val(design[0].price);
+            basePriceTotal.innerHTML = design[0].cost;
+            grand_total = design[0].cost;
+            costInventory.value = design[0].cost_inventory;
+            sssku = design[0].sssku;
             console.log('sssku', sssku);
           }
           
