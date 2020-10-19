@@ -47,6 +47,7 @@ const titleInput = document.querySelector("#title");
 const descriptionInput = document.querySelector("#description");
 const priceInput = document.querySelector("#price");
 const basePrice = document.querySelector("#base-price-product");
+const basePriceTotal = document.querySelector("#base-price-total");
 const modal = document.querySelector(".modal");
 const closeModal = document.querySelectorAll(".close-modal");
 const modalAlert = document.querySelector("#alert");
@@ -114,34 +115,36 @@ const product = getUrlParam('product');
 const shop_token = getUrlParam('shop');
 const token = getUrlParam('token');
 const styleID = getUrlParam('style_id');
-let colorSwatchImage = getUrlParam('image') || '65594_f_fm';
+const colorSwatchImage = getUrlParam('image');
+const designID = getUrlParam('design_id');
+
 let grand_total
 jQuery(document).ready(function(){
 
     let price_embroidery;
     //set total 
     function set_price_total(){
-    if($('select#embroidery-type').val() === 'flat') {
-        price_embroidery = 7.5;
-    } else {
-        price_embroidery = 9.5;
-    }
-    const price_shipping = parseFloat(4);
-    const price_product = parseFloat(basePrice.value);
-    const price_markup = parseFloat(3);
-    const price_total = $('#base-price-total');
+      if($('select#embroidery-type').val() === 'flat') {
+          price_embroidery = 7.5;
+      } else {
+          price_embroidery = 9.5;
+      }
+      const price_shipping = parseFloat(4);
+      const price_product = parseFloat(basePrice.value);
+      const price_markup = parseFloat(3);
+      const price_total = $('#base-price-total');
 
-    if ( window.localStorage.getItem('userType') == 'Founder' ) {
+      if ( window.localStorage.getItem('userType') == 'Founder' ) {
 
-      price_markup = 0;
+        price_markup = 0;
 
-    }
+      }
 
-    grand_total = (price_embroidery + price_shipping + price_product + price_markup).toFixed(2);
-    
-    price_total.html(grand_total);
-    $('#price').val(grand_total);
-    $('#cost-inventory').val(grand_total);
+      grand_total = (price_embroidery + price_shipping + price_product + price_markup).toFixed(2);
+      
+      price_total.html(grand_total);
+      $('#price').val(grand_total);
+      $('#cost-inventory').val(grand_total);
 
     } // end of set_price_total()
     
@@ -154,7 +157,7 @@ jQuery(document).ready(function(){
      
     // publish to shopify
     $('#publish').click(function(){
-      const imageUsed = localStorage.getItem('fpd_uploaded_images'); //images used
+      
       yourDesigner.getProductDataURL(function(dataURL) {
         
         const title = $('#title').val();
@@ -251,29 +254,33 @@ jQuery(document).ready(function(){
 
 
     // products
-    $.ajax({
-        url: "https://api.bigstitchy.com/api/products?search=headwear",
-        type: "GET",
-        success: function(data) {
-            const prod = data.filter(d => (d.styleID == styleID));
-            window.localStorage.setItem('clothing-designer', JSON.stringify(data));
-            titleInput.value = prod[0].title;
-            tinyMCE.activeEditor.setContent(prod[0].description);
-            console.log(data);
-        }
-    });
+    if(!designID) { // execute only if it's not in edit mode
+      $.ajax({
+          url: "https://api.bigstitchy.com/api/products?search=headwear",
+          type: "GET",
+          success: function(data) {
+              const prod = data.filter(d => (d.styleID == styleID));
+              window.localStorage.setItem('clothing-designer', JSON.stringify(data));
+              titleInput.value = prod[0].title;
+              tinyMCE.activeEditor.setContent(prod[0].description);
+              console.log(data);
+          }
+      });
+    }
 
     // styles
-    $.ajax({
-        url: `https://api.bigstitchy.com/api/products?style_id=${styleID}`,
-        type: "GET",
-        success: function(data) {
-            basePrice.value = parseFloat((data[0].salePrice));
-            sssku = data[0].sku
-            set_price_total();
-            console.log(data);
-        }
-    });
+    if(!designID) { // execute only if it's not in edit mode
+      $.ajax({
+          url: `https://api.bigstitchy.com/api/products?style_id=${styleID}`,
+          type: "GET",
+          success: function(data) {
+              basePrice.value = parseFloat((data[0].salePrice));
+              sssku = data[0].sku
+              set_price_total();
+              console.log(data);
+          }
+      });
+    }
     
     tinymce.init({
         selector: '#description',
@@ -339,6 +346,44 @@ jQuery(document).ready(function(){
         mainBarModules: ['images', 'text', 'manage-layers']
     },
     yourDesigner = new FancyProductDesigner($yourDesigner, pluginOpts);
+    
+    // Load design using design_id url params
+    if(!!designID) {
+      $('.close-modal').addClass('hide');
+      $('.modal').addClass('show');
+      $('.modal__inner p').text('Loading your design, please wait...');
+      document.querySelector('#cta').innerHTML = 'Save changes';
+      // load design
+      $.ajax({
+        url: `https://api.bigstitchy.com/api/accounts/attachments`,
+        type: "GET",
+        headers: {
+          'Authorization': `Bearer ${token}`
+        },
+        success: function(data) {
+          const design = data.filter(d => {
+            return d.id == designID
+          })
+
+          // actual rendering to UI
+          if(!!design) {
+            console.log(design[0]);
+            yourDesigner.loadProduct(design[0].product);
+            titleInput.value = design[0].title;
+            tinyMCE.activeEditor.setContent(design[0].description);
+            $('#price').val(design[0].cost);
+            basePriceTotal.innerHTML = design[0].cost
+            costInventory.value = design[0].cost_inventory
+            sssku = design[0].sssku
+            console.log('sssku', sssku);
+          }
+          
+          $('.modal').removeClass('show');
+          $('.modal__inner p').text('');
+          $('.close-modal').removeClass('hide');
+        }
+      });
+    }
 
     //print button
     $('#print-button').click(function(){
@@ -377,4 +422,5 @@ jQuery(document).ready(function(){
             $.post( "php/send_image_via_mail.php", { base64_image: dataURL} );
         });
     });
+
 });
