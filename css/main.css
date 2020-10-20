@@ -2,7 +2,7 @@
 
 body {
 	font-family: 'Montserrat', sans-serif;
-	padding: 0;
+	padding: 1rem;
 	margin: 0;
 	box-sizing: border-box;
 }
@@ -44,7 +44,6 @@ select#embroidery-type {
 }
 
 #stitchy-action {
-  background-color: antiquewhite;
   width: 400px;
   height: 400px;
   box-sizing: border-box;
