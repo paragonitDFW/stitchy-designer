@@ -2,7 +2,7 @@
 
 body {
 	font-family: 'Montserrat', sans-serif;
-	padding: 2rem;
+	padding: 1rem;
 	margin: 0;
 	box-sizing: border-box;
 }
@@ -34,23 +34,22 @@ select#embroidery-type {
 /* Stitchy Actions */
 
 #main-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  text-align: center;
 }
 
 #clothing-designer {
-  margin-bottom: 2rem;
+  display: inline-block;
 }
 
 #stitchy-action {
-  width: 300px;
-  min-height: 500px;
-  float: left;
+  background-color: ivory;
+  width: 400px;
+  height: 500px;
   box-sizing: border-box;
   padding: 30px;
-  margin-left: 10px;
-  margin-bottom: 2rem;
+  display: inline-block;
+  overflow-y: scroll;
+  text-align: left;
 }
 
 #stitchy-action .navigation div {

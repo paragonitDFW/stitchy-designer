@@ -305,8 +305,8 @@ jQuery(document).ready(function(){
             }]
         }]],
         designsJSON: 'json/designs.json', //see JSON folder for designs sorted in categories
-        stageWidth: 500,
-        stageHeight: 500,
+        stageWidth: 250,
+        stageHeight: 250,
         editorMode: false,
         smartGuides: false,
         fitImagesInCanvas: true,
@@ -334,14 +334,12 @@ jQuery(document).ready(function(){
             colors: '#000',
             autoCenter: true,
             boundingBox: "Base",
-            maxW: 5000,
-            maxH: 5000
+            maxW: 3000,
+            maxH: 3000
         },
         actions:  {
-            'top': ['snap', 'preview-lightbox'],
-            'right': ['magnify-glass', 'zoom', 'reset-product', 'ruler'],
-            'bottom': ['undo','redo'],
-            'left': ['manage-layers','save']
+            'left': ['undo','redo','magnify-glass', 'zoom', 'reset-product', 'ruler', 'snap'],
+            'bottom': ['manage-layers','save']
         },
         mainBarModules: ['images', 'text', 'manage-layers']
     },
