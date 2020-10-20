@@ -53,6 +53,13 @@ select#embroidery-type {
   text-align: left;
 }
 
+@media (max-width: 853px) {
+  #stitchy-action {
+    height: auto;
+    overflow-y: auto;
+  }
+}
+
 #stitchy-action .navigation div {
   background-color: #34495e;
   color: #fff;
