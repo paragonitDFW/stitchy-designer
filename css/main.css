@@ -291,3 +291,9 @@ label {
 .fpd-overflow-hidden {
   overflow-y: auto !important;
 }
+
+@media (max-width: 853px) {
+  .fpd-element-toolbar-smart {
+    top: 10px !important;
+  }
+}
