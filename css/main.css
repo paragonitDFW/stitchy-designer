@@ -55,6 +55,8 @@ select#embroidery-type {
 
 @media (max-width: 853px) {
   #stitchy-action {
+    display: block;
+    margin: 0 auto;
     height: auto;
     overflow-y: auto;
   }
