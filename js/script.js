@@ -305,8 +305,8 @@ jQuery(document).ready(function(){
             }]
         }]],
         designsJSON: 'json/designs.json', //see JSON folder for designs sorted in categories
-        stageWidth: 250,
-        stageHeight: 250,
+        stageWidth: 400,
+        stageHeight: 400,
         editorMode: false,
         smartGuides: false,
         fitImagesInCanvas: true,
@@ -334,8 +334,8 @@ jQuery(document).ready(function(){
             colors: '#000',
             autoCenter: true,
             boundingBox: "Base",
-            maxW: 3000,
-            maxH: 3000
+            maxW: 400,
+            maxH: 400
         },
         actions:  {
             'left': ['undo','redo','magnify-glass', 'zoom', 'reset-product', 'ruler', 'snap'],

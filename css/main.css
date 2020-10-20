@@ -2,7 +2,7 @@
 
 body {
 	font-family: 'Montserrat', sans-serif;
-	padding: 1rem;
+	padding: 0;
 	margin: 0;
 	box-sizing: border-box;
 }
@@ -43,7 +43,7 @@ select#embroidery-type {
 
 #stitchy-action {
   background-color: ivory;
-  width: 400px;
+  width: 500px;
   height: 500px;
   box-sizing: border-box;
   padding: 30px;
@@ -279,5 +279,5 @@ label {
 }
 
 .fpd-overflow-hidden {
-  overflow: scroll !important;
+  overflow-y: scroll;
 }
