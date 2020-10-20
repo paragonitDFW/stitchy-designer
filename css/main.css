@@ -279,5 +279,5 @@ label {
 }
 
 .fpd-overflow-hidden {
-  overflow-y: scroll;
+  overflow-y: scroll !important;
 }
