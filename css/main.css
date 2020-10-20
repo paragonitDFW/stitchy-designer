@@ -39,12 +39,14 @@ select#embroidery-type {
 
 #clothing-designer {
   display: inline-block;
+  width: 400px !important;
+  height: 400px !important;
 }
 
 #stitchy-action {
   background-color: ivory;
-  width: 500px;
-  height: 500px;
+  width: 400px;
+  height: 400px;
   box-sizing: border-box;
   padding: 30px;
   display: inline-block;

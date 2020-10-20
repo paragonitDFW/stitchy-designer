@@ -338,7 +338,8 @@ jQuery(document).ready(function(){
             maxH: 400
         },
         actions:  {
-            'left': ['undo','redo','magnify-glass', 'zoom', 'reset-product', 'ruler', 'snap','manage-layers','save']
+            'left': ['undo','redo','magnify-glass', 'zoom', 'reset-product', 'ruler', 'snap'],
+            'bottom': ['manage-layers','save']
         },
         mainBarModules: ['images', 'text', 'manage-layers']
     },
