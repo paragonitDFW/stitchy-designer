@@ -1,3 +1,17 @@
+tinymce.init({
+    selector: '#description',
+    toolbar: false,
+    menubar:false,
+    statusbar: false,
+    plugins: [ 'quickbars' ],
+    init_instance_callback : function() {
+      $('.modal').removeClass('show');
+      $('.modal__inner p').text('');
+      $('.close-modal').removeClass('hide');
+      console.log('tinymce loaded');
+    }
+});
+
 // Dynamic referencing of DOM : BEGIN
 // Note: this should be use because elements of Fancy Product Designer is dynamycally rendered
 
@@ -281,14 +295,6 @@ jQuery(document).ready(function(){
           }
       });
     }
-    
-    tinymce.init({
-        selector: '#description',
-        toolbar: false,
-        menubar:false,
-        statusbar: false,
-        plugins: [ 'quickbars' ],
-    });
 
     var $yourDesigner = $('#clothing-designer'), pluginOpts = {
         productsJSON: [[{
@@ -368,6 +374,7 @@ jQuery(document).ready(function(){
             console.log(design[0]);
             yourDesigner.loadProduct(design[0].product);
             titleInput.value = design[0].title;
+            console.log(tinyMCE.activeEditor);
             tinyMCE.activeEditor.setContent(design[0].description);
             $('#price').val(design[0].price);
             basePriceTotal.innerHTML = design[0].cost;
