@@ -340,8 +340,8 @@ jQuery(document).ready(function(){
             colors: '#000',
             autoCenter: true,
             boundingBox: "Base",
-            maxW: 400,
-            maxH: 400
+            maxW: 5000,
+            maxH: 5000
         },
         actions:  {
             'left': ['undo','redo','magnify-glass', 'zoom', 'reset-product', 'ruler', 'snap'],
