@@ -1,17 +1,3 @@
-tinymce.init({
-    selector: '#description',
-    toolbar: false,
-    menubar:false,
-    statusbar: false,
-    plugins: [ 'quickbars' ],
-    init_instance_callback : function() {
-      $('.modal').removeClass('show');
-      $('.modal__inner p').text('');
-      $('.close-modal').removeClass('hide');
-      console.log('tinymce loaded');
-    }
-});
-
 // Dynamic referencing of DOM : BEGIN
 // Note: this should be use because elements of Fancy Product Designer is dynamycally rendered
 
@@ -267,20 +253,22 @@ jQuery(document).ready(function(){
     }); // end of $('$publish).click();
 
 
-    // products
-    if(!designID) { // execute only if it's not in edit mode
-      $.ajax({
-          url: "https://api.bigstitchy.com/api/products?search=headwear",
-          type: "GET",
-          success: function(data) {
-              const prod = data.filter(d => (d.styleID == styleID));
-              window.localStorage.setItem('clothing-designer', JSON.stringify(data));
-              titleInput.value = prod[0].title;
-              tinyMCE.activeEditor.setContent(prod[0].description);
-              console.log(data);
-          }
-      });
-    }
+    function loadProductData(){
+      // products
+      if(!designID) { // execute only if it's not in edit mode
+        $.ajax({
+            url: "https://api.bigstitchy.com/api/products?search=headwear",
+            type: "GET",
+            success: function(data) {
+                const prod = data.filter(d => (d.styleID == styleID));
+                window.localStorage.setItem('clothing-designer', JSON.stringify(data));
+                titleInput.value = prod[0].title;
+                tinyMCE.activeEditor.setContent(prod[0].description);
+                console.log(data);
+            }
+        });
+      }
+    } // end of loadProductData()
 
     // styles
     if(!designID) { // execute only if it's not in edit mode
@@ -295,6 +283,20 @@ jQuery(document).ready(function(){
           }
       });
     }
+
+    tinymce.init({
+      selector: '#description',
+      toolbar: false,
+      menubar:false,
+      statusbar: false,
+      plugins: [ 'quickbars' ],
+      init_instance_callback : function() {
+        $('.modal').removeClass('show');
+        $('.modal__inner p').text('');
+        $('.close-modal').removeClass('hide');
+        loadProductData();
+      }
+    });
 
     var $yourDesigner = $('#clothing-designer'), pluginOpts = {
         productsJSON: [[{
