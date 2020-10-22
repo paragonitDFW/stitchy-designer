@@ -347,7 +347,7 @@ jQuery(document).ready(function(){
         },
         actions:  {
             'left': ['undo','redo','magnify-glass', 'zoom', 'reset-product', 'ruler', 'snap'],
-            'bottom': ['manage-layers','save']
+            'bottom': ['manage-layers']
         },
         mainBarModules: ['images', 'text', 'manage-layers']
     },
