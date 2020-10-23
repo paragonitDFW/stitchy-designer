@@ -15,6 +15,8 @@ const callback = (mutationsList, observer) => {
             } else {
                 // set download name with the email name
                 saveBtn = document.querySelector('[data-action=save]');
+                saveBtn.style.opacity = '0'
+                saveBtn.style.position = 'absolute'
             }
             if(!document.querySelector('[data-module=text]')) {
                 return;
@@ -347,7 +349,7 @@ jQuery(document).ready(function(){
         },
         actions:  {
             'left': ['undo','redo','magnify-glass', 'zoom', 'reset-product', 'ruler', 'snap'],
-            'bottom': ['manage-layers']
+            'bottom': ['manage-layers', 'save']
         },
         mainBarModules: ['images', 'text', 'manage-layers']
     },
