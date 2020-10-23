@@ -17,6 +17,7 @@ const callback = (mutationsList, observer) => {
                 saveBtn = document.querySelector('[data-action=save]');
                 saveBtn.style.opacity = '0'
                 saveBtn.style.position = 'absolute'
+                saveBtn.style.visibility = 'hidden'
             }
             if(!document.querySelector('[data-module=text]')) {
                 return;
