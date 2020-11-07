@@ -120,6 +120,7 @@ const token = getUrlParam('token');
 const styleID = getUrlParam('style_id');
 const colorSwatchImage = getUrlParam('image');
 const designID = getUrlParam('design_id');
+const category = getUrlParam('category');
 
 let grand_total
 jQuery(document).ready(function(){
@@ -260,7 +261,7 @@ jQuery(document).ready(function(){
       // products
       if(!designID) { // execute only if it's not in edit mode
         $.ajax({
-            url: "https://api.bigstitchy.com/api/products?search=headwear",
+            url: `https://api.bigstitchy.com/api/products?search=${category}`,
             type: "GET",
             success: function(data) {
                 const prod = data.filter(d => (d.styleID == styleID));
