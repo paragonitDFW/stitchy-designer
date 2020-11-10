@@ -280,7 +280,7 @@ jQuery(document).ready(function(){
           url: `https://api.bigstitchy.com/api/products?style_id=${styleID}`,
           type: "GET",
           success: function(data) {
-              basePrice.value = parseFloat((data[0].salePrice));
+              basePrice.value = parseFloat((data[0].customerPrice));
               sssku = data[0].sku
               set_price_total();
               console.log(data);
