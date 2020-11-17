@@ -56,6 +56,7 @@ const closeModal = document.querySelectorAll(".close-modal");
 const modalAlert = document.querySelector("#alert");
 const costInventory = document.querySelector("#cost-inventory");
 let sssku;
+let sizes;
 document.querySelector('#next').addEventListener('click', () => {
     saveBtn.click()
     if(titleInput.value === "" | priceInput.value === "") {
@@ -118,6 +119,7 @@ const product = getUrlParam('product');
 const shop_token = getUrlParam('shop');
 const token = getUrlParam('token');
 const styleID = getUrlParam('style_id');
+const colorCode = getUrlParam('colorCode');
 const colorSwatchImage = getUrlParam('image');
 const designID = getUrlParam('design_id');
 const category = getUrlParam('category');
@@ -261,7 +263,7 @@ jQuery(document).ready(function(){
       // products
       if(!designID) { // execute only if it's not in edit mode
         $.ajax({
-            url: `https://api.bigstitchy.com/api/products?search=${category}`,
+            url: `https://api.bigstitchy.com/api/products?search=${category}`, // for description and title
             type: "GET",
             success: function(data) {
                 const prod = data.filter(d => (d.styleID == styleID));
@@ -277,13 +279,19 @@ jQuery(document).ready(function(){
     // styles
     if(!designID) { // execute only if it's not in edit mode
       $.ajax({
-          url: `https://api.bigstitchy.com/api/products?style_id=${styleID}`,
+          url: `https://api.bigstitchy.com/api/products?style_id=${styleID}`, // for style details 
           type: "GET",
           success: function(data) {
               basePrice.value = parseFloat((data[0].customerPrice));
               sssku = data[0].sku
               set_price_total();
               console.log(data);
+              sizes = data.filter(d => {
+                return d.colorCode === colorCode
+              });
+              data.forEach(d => {
+                console.log(d.sku, d.colorCode, d.color1, d.sizeCode, d.sizeName);
+              })
           }
       });
     }
@@ -387,6 +395,7 @@ jQuery(document).ready(function(){
             grand_total = design[0].cost;
             costInventory.value = design[0].cost_inventory;
             sssku = design[0].sssku;
+            sizes = design[0].sizes;
             console.log('sssku', sssku);
           }
           
