@@ -55,8 +55,7 @@ const modal = document.querySelector(".modal");
 const closeModal = document.querySelectorAll(".close-modal");
 const modalAlert = document.querySelector("#alert");
 const costInventory = document.querySelector("#cost-inventory");
-let sssku;
-let sizes;
+let variants;
 document.querySelector('#next').addEventListener('click', () => {
     saveBtn.click()
     if(titleInput.value === "" | priceInput.value === "") {
@@ -283,10 +282,9 @@ jQuery(document).ready(function(){
           type: "GET",
           success: function(data) {
               basePrice.value = parseFloat((data[0].customerPrice));
-              sssku = data[0].sku
               set_price_total();
               console.log(data);
-              sizes = data.filter(d => {
+              variants = data.filter(d => {
                 return d.colorCode === colorCode
               });
               data.forEach(d => {
@@ -394,9 +392,7 @@ jQuery(document).ready(function(){
             basePriceTotal.innerHTML = design[0].cost;
             grand_total = design[0].cost;
             costInventory.value = design[0].cost_inventory;
-            sssku = design[0].sssku;
-            sizes = design[0].sizes;
-            console.log('sssku', sssku);
+            variants = design[0].variants;
           }
           
           $('.modal').removeClass('show');
