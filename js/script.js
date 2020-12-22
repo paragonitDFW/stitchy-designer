@@ -122,6 +122,7 @@ const colorCode = getUrlParam('colorCode');
 const colorSwatchImage = getUrlParam('image');
 const designID = getUrlParam('design_id');
 const category = getUrlParam('category');
+const provider = getUrlParam('provider');
 
 let grand_total
 jQuery(document).ready(function(){
@@ -262,7 +263,7 @@ jQuery(document).ready(function(){
       // products
       if(!designID) { // execute only if it's not in edit mode
         $.ajax({
-            url: `https://api.bigstitchy.com/api/products?search=${category}`, // for description and title
+            url: `https://api.bigstitchy.com/api/products/${provider}?search=${category}`, // for description and title
             type: "GET",
             success: function(data) {
                 const prod = data.filter(d => (d.styleID == styleID));
@@ -278,7 +279,7 @@ jQuery(document).ready(function(){
     // styles
     if(!designID) { // execute only if it's not in edit mode
       $.ajax({
-          url: `https://api.bigstitchy.com/api/products?style_id=${styleID}`, // for style details 
+          url: `https://api.bigstitchy.com/api/products/${provider}?style_id=${styleID}`, // for style details 
           type: "GET",
           success: function(data) {
               basePrice.value = parseFloat((data[0].customerPrice));
