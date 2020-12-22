@@ -263,8 +263,11 @@ jQuery(document).ready(function(){
       // products
       if(!designID) { // execute only if it's not in edit mode
         $.ajax({
-            url: `https://api.bigstitchy.com/api/products/${provider}?search=${category}`, // for description and title
+            url: `https://api.bigstitchy.com/api/products/${provider}/`, // for description and title
             type: "GET",
+            params: {
+              search: category
+            },
             headers: {
               'Authorization': `Bearer ${token}`
             },
@@ -282,8 +285,11 @@ jQuery(document).ready(function(){
     // styles
     if(!designID) { // execute only if it's not in edit mode
       $.ajax({
-          url: `https://api.bigstitchy.com/api/products/${provider}?style_id=${styleID}`, // for style details 
+          url: `https://api.bigstitchy.com/api/products/${provider}/`, // for style details 
           type: "GET",
+          params: {
+            style_id: styleID
+          },
           headers: {
             'Authorization': `Bearer ${token}`
           },
