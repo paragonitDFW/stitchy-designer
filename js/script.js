@@ -265,6 +265,9 @@ jQuery(document).ready(function(){
         $.ajax({
             url: `https://api.bigstitchy.com/api/products/${provider}?search=${category}`, // for description and title
             type: "GET",
+            headers: {
+              'Authorization': `Bearer ${token}`
+            },
             success: function(data) {
                 const prod = data.filter(d => (d.styleID == styleID));
                 window.localStorage.setItem('clothing-designer', JSON.stringify(data));
@@ -281,6 +284,9 @@ jQuery(document).ready(function(){
       $.ajax({
           url: `https://api.bigstitchy.com/api/products/${provider}?style_id=${styleID}`, // for style details 
           type: "GET",
+          headers: {
+            'Authorization': `Bearer ${token}`
+          },
           success: function(data) {
               basePrice.value = parseFloat((data[0].customerPrice));
               set_price_total();
