@@ -265,7 +265,7 @@ jQuery(document).ready(function(){
         $.ajax({
             url: `https://api.bigstitchy.com/api/products/${provider}/`, // for description and title
             type: "GET",
-            params: {
+            data: {
               search: category
             },
             headers: {
@@ -287,7 +287,7 @@ jQuery(document).ready(function(){
       $.ajax({
           url: `https://api.bigstitchy.com/api/products/${provider}/`, // for style details 
           type: "GET",
-          params: {
+          data: {
             style_id: styleID
           },
           headers: {
