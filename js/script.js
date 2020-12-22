@@ -263,7 +263,7 @@ jQuery(document).ready(function(){
       // products
       if(!designID) { // execute only if it's not in edit mode
         $.ajax({
-            url: `https://api.bigstitchy.com/api/products/${provider}/`, // for description and title
+            url: `https://api.bigstitchy.com/api/products/${provider}/styles/`, // for description and title
             type: "GET",
             data: {
               search: category
