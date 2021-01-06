@@ -151,6 +151,8 @@ jQuery(document).ready(function(){
       price_total.html(grand_total);
       $('#price').val((parseFloat(grand_total)+parseFloat(grand_total)*.3).toFixed(2));
       $('#cost-inventory').val(grand_total);
+      const expected_profit = (parseFloat($('#price').val()) - parseFloat(grand_total) + 1).toFixed(2);
+      $('#expected-profit').html(expected_profit);
 
     } // end of set_price_total()
 
@@ -158,10 +160,15 @@ jQuery(document).ready(function(){
       if($('select#embroidery-type').val() === 'flat') {
         const price = parseFloat($('#price').val()) - 2;
         $('#price').val((price).toFixed(2));
+        const expected_profit = (parseFloat($('#price').val()) - parseFloat(grand_total) + 1).toFixed(2);
+        $('#expected-profit').html(expected_profit);
         } else {
           const price = parseFloat($('#price').val()) + 2;
           $('#price').val((price).toFixed(2));
+          const expected_profit = (parseFloat($('#price').val()) - parseFloat(grand_total) + 1 - 2).toFixed(2);
+          $('#expected-profit').html(expected_profit);
         }
+
     }
 
     $('select#embroidery-type').change(function(){
@@ -170,8 +177,22 @@ jQuery(document).ready(function(){
 
     }); // end of $('select#embroidery-type')
 
+
+    // $('#expected-profit').html(()).toFixed(2));
+
     $('#price').change(function(){
       $(this).val( parseFloat($(this).val()).toFixed(2) );
+      if($('select#embroidery-type').val() === 'flat') {
+        const price = parseFloat($('#price').val()) - 2;
+        $('#price').val((price).toFixed(2));
+        const expected_profit = (parseFloat($('#price').val()) - parseFloat(grand_total) + 1).toFixed(2);
+        $('#expected-profit').html(expected_profit);
+        } else {
+          const price = parseFloat($('#price').val()) + 2;
+          $('#price').val((price).toFixed(2));
+          const expected_profit = (parseFloat($('#price').val()) - parseFloat(grand_total) + 1 - 2).toFixed(2);
+          $('#expected-profit').html(expected_profit);
+        }
     });
      
     // publish to shopify
