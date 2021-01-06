@@ -162,6 +162,8 @@ jQuery(document).ready(function(){
         $('#price').val((price).toFixed(2));
         const expected_profit = (parseFloat($('#price').val()) - parseFloat(grand_total) + 1).toFixed(2);
         $('#expected-profit').html(expected_profit);
+        const price_total = $('#base-price-total');
+        price_total.html((parseFloat(grand_total)-2).toFixed(2));
         } else {
           const price = parseFloat($('#price').val()) + 2;
           $('#price').val((price).toFixed(2));
