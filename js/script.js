@@ -124,7 +124,8 @@ const designID = getUrlParam('design_id');
 const category = getUrlParam('category');
 const provider = getUrlParam('provider');
 
-let grand_total
+let grand_total = 0;
+
 jQuery(document).ready(function(){
 
     let price_embroidery;
@@ -147,9 +148,8 @@ jQuery(document).ready(function(){
       }
 
       grand_total = (price_embroidery + price_shipping + price_product + price_markup).toFixed(2);
-      
       price_total.html(grand_total);
-      $('#price').val(grand_total);
+      $('#price').val((( price_embroidery + price_shipping + price_product + price_markup) + (price_embroidery + price_shipping + price_product + price_markup)*.3).toFixed(2));
       $('#cost-inventory').val(grand_total);
 
     } // end of set_price_total()
@@ -294,6 +294,7 @@ jQuery(document).ready(function(){
             'Authorization': `Bearer ${token}`
           },
           success: function(data) {
+
               basePrice.value = parseFloat((data[0].customerPrice));
               set_price_total();
               console.log(data);
