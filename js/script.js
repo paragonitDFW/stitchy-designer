@@ -149,17 +149,30 @@ jQuery(document).ready(function(){
 
       grand_total = (price_embroidery + price_shipping + price_product + price_markup).toFixed(2);
       price_total.html(grand_total);
-      $('#price').val((( price_embroidery + price_shipping + price_product + price_markup) + (price_embroidery + price_shipping + price_product + price_markup)*.3).toFixed(2));
+      $('#price').val((parseFloat(grand_total)+parseFloat(grand_total)*.3).toFixed(2));
       $('#cost-inventory').val(grand_total);
 
     } // end of set_price_total()
-    
+
+    function change_price_total(){
+      if($('select#embroidery-type').val() === 'flat') {
+        const price = parseFloat($('#price').val()) - 2;
+        $('#price').val((price).toFixed(2));
+        } else {
+          const price = parseFloat($('#price').val()) + 2;
+          $('#price').val((price).toFixed(2));
+        }
+    }
 
     $('select#embroidery-type').change(function(){
       
-      set_price_total();
+      change_price_total();
 
     }); // end of $('select#embroidery-type')
+
+    $('#price').change(function(){
+      $(this).val( parseFloat($(this).val()).toFixed(2) );
+    });
      
     // publish to shopify
     $('#publish').click(function(){
