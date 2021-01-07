@@ -370,6 +370,19 @@ jQuery(document).ready(function(){
       }
 
     });
+
+
+    // ADD IMAGE AND IMG CLICK
+    $('body').on('click', '.fpd-item', function(){
+      const firstEle = $(this).children().first();
+    
+      if (firstEle.is('picture')) {
+
+        $('.fpd-icon-close').click();
+
+      }
+
+    });
     //$('.modal').removeClass('show');
 
     var $yourDesigner = $('#clothing-designer'), pluginOpts = {

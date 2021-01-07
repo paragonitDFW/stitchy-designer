@@ -297,3 +297,8 @@ label {
     top: 10px !important;
   }
 }
+
+/* just hide the overlapping reset button */
+.fpd-element-toolbar-smart.fpd-visibility.fpd-theme-white.fpd-toolbar-placement-smart.fpd-type-image.fpd-show {
+  display: none;
+}
