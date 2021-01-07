@@ -360,6 +360,18 @@ jQuery(document).ready(function(){
       }
     });
 
+    /* ADD TEXT button clicked */
+    $('body').on('click', '.fpd-btn', function(){
+
+      if( $(this).children().first().text() === 'Add Text' ) {
+
+        $('.fpd-icon-close').click();
+
+      }
+
+    });
+    //$('.modal').removeClass('show');
+
     var $yourDesigner = $('#clothing-designer'), pluginOpts = {
         productsJSON: [[{
             "elements": [{
