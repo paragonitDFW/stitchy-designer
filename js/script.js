@@ -131,6 +131,7 @@ jQuery(document).ready(function(){
     let price_embroidery;
     //set total 
     function set_price_total(){
+
       if($('select#embroidery-type').val() === 'flat') {
           price_embroidery = 7.5;
       } else {
@@ -148,7 +149,11 @@ jQuery(document).ready(function(){
       }
 
       grand_total = (price_embroidery + price_shipping + price_product + price_markup).toFixed(2);
+      if( getUrlParam('discounted') === 'false' ) {
       price_total.html(grand_total);
+    } else {
+      price_total.html(parseFloat(grand_total)-1);
+    }
       $('#price').val((parseFloat(grand_total)+parseFloat(grand_total)*.3).toFixed(2));
       $('#cost-inventory').val(grand_total);
       const expected_profit = (parseFloat($('#price').val()) - parseFloat(grand_total) + 1).toFixed(2);
@@ -163,14 +168,22 @@ jQuery(document).ready(function(){
         const expected_profit = (parseFloat($('#price').val()) - parseFloat(grand_total) + 1).toFixed(2);
         $('#expected-profit').html(expected_profit);
         const price_total = $('#base-price-total');
+        if( getUrlParam('discounted') === 'false' ) {
         price_total.html((parseFloat(grand_total)).toFixed(2));
+        } else {
+          price_total.html((parseFloat(grand_total-1)).toFixed(2));
+        }
         } else {
           const price = parseFloat($('#price').val()) + 2;
           $('#price').val((price).toFixed(2));
           const expected_profit = (parseFloat($('#price').val()) - parseFloat(grand_total) + 1 - 2).toFixed(2);
           $('#expected-profit').html(expected_profit);
           const price_total = $('#base-price-total');
+          if( getUrlParam('discounted') === 'false' ) {
           price_total.html((parseFloat(grand_total)+2).toFixed(2));
+          } else {
+            price_total.html((parseFloat(grand_total-1)+2).toFixed(2));
+          }
         }
 
     }
