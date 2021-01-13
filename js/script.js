@@ -311,29 +311,24 @@ jQuery(document).ready(function(){
 
 
     function loadProductData(){
-      // products
+      // style
       if(!designID) { // execute only if it's not in edit mode
         $.ajax({
-            url: `https://api.bigstitchy.com/api/products/${provider}/styles/`, // for description and title
+            url: `https://api.bigstitchy.com/api/products/${provider}/styles/${styleID}`, // for description and title
             type: "GET",
-            data: {
-              search: category
-            },
             headers: {
               'Authorization': `Bearer ${token}`
             },
-            success: function(data) {
-                const prod = data.filter(d => (d.styleID == styleID));
-                window.localStorage.setItem('clothing-designer', JSON.stringify(data));
-                titleInput.value = prod[0].title;
-                tinyMCE.activeEditor.setContent(prod[0].description);
-                console.log(data);
+            success: function(style) {
+                window.localStorage.setItem('clothing-designer', JSON.stringify(style));
+                titleInput.value = style[0].title;
+                tinyMCE.activeEditor.setContent(style[0].description);
             }
         });
       }
     } // end of loadProductData()
 
-    // styles
+    // products
     if(!designID) { // execute only if it's not in edit mode
       $.ajax({
           url: `https://api.bigstitchy.com/api/products/${provider}/`, // for style details 
@@ -344,17 +339,13 @@ jQuery(document).ready(function(){
           headers: {
             'Authorization': `Bearer ${token}`
           },
-          success: function(data) {
-
-              basePrice.value = parseFloat((data[0].customerPrice));
-              set_price_total();
-              console.log(data);
-              variants = data.filter(d => {
-                return d.colorCode === colorCode
+          success: function(products) {
+              // get the specific variant base on the colorCode
+              variant = products.filter(product => {
+                return product.colorCode === colorCode
               });
-              data.forEach(d => {
-                console.log(d.sku, d.colorCode, d.color1, d.sizeCode, d.sizeName);
-              })
+              basePrice.value = parseFloat(variant[0].customerPrice)
+              set_price_total();
           }
       });
     }
@@ -421,7 +412,7 @@ jQuery(document).ready(function(){
         fonts: [
             {name: 'Helvetica'},
             {name: 'Times New Roman'},
-            {name: 'Pacifico', url: 'Enter_URL_To_Pacifico_TTF'},
+            {name: 'Pacifico', url: 'google'},
             {name: 'Arial'},
             {name: 'Lobster', url: 'google'}
         ],
