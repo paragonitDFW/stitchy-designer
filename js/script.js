@@ -382,6 +382,7 @@ jQuery(document).ready(function(){
           // actual rendering to UI
           if(!!design) {
             console.log(design[0]);
+            localStorage.removeItem('clothing-designer')
             yourDesigner.loadProduct(design[0].product);
             titleInput.value = design[0].title;
             console.log(tinyMCE.activeEditor);
