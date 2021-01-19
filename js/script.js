@@ -393,6 +393,7 @@ jQuery(document).ready(function(){
             variant = design[0].variants;
             const expected_profit = (parseFloat($('#price').val()) - parseFloat(grand_total)).toFixed(2);
             $('#expected-profit').html(expected_profit);
+            embroideryType.val(design[0].embroidery_type)
           }
           
           $('.modal').removeClass('show');
