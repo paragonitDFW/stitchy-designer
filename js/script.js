@@ -54,6 +54,7 @@ const basePriceTotal = document.querySelector("#base-price-total");
 const modal = document.querySelector(".modal");
 const closeModal = document.querySelectorAll(".close-modal");
 const modalAlert = document.querySelector("#alert");
+const embroideryType = document.querySelector('select#embroidery-type');
 let variants;
 document.querySelector('#next').addEventListener('click', () => {
     saveBtn.click()
@@ -235,7 +236,7 @@ jQuery(document).ready(function(){
               'Authorization': `Bearer ${token}`
             },
             success: function(style) {
-                window.localStorage.setItem('clothing-designer', JSON.stringify(style));
+                window.localStorage.setItem('clothing-designer', JSON.stringify([style]));
                 titleInput.value = style.title;
                 tinyMCE.activeEditor.setContent(style.description);
             }
@@ -373,6 +374,7 @@ jQuery(document).ready(function(){
           'Authorization': `Bearer ${token}`
         },
         success: function(data) {
+          console.log(data);
           const design = data.filter(d => {
             return d.id == designID
           })
@@ -387,8 +389,9 @@ jQuery(document).ready(function(){
             $('#price').val(design[0].price);
             basePriceTotal.innerHTML = design[0].cost;
             grand_total = design[0].cost;
-            variants = design[0].variants;
-
+            variant = design[0].variants;
+            const expected_profit = (parseFloat($('#price').val()) - parseFloat(grand_total)).toFixed(2);
+            $('#expected-profit').html(expected_profit);
           }
           
           $('.modal').removeClass('show');
