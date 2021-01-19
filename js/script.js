@@ -44,8 +44,8 @@ const callback = (mutationsList, observer) => {
 const observer = new MutationObserver(callback);
 // Start observing the target node for configured mutations
 observer.observe(document.body, {childList: true});
-
 // Dynamic referencing of DOM : END
+
 const titleInput = document.querySelector("#title");
 const descriptionInput = document.querySelector("#description");
 const priceInput = document.querySelector("#price");
@@ -54,7 +54,6 @@ const basePriceTotal = document.querySelector("#base-price-total");
 const modal = document.querySelector(".modal");
 const closeModal = document.querySelectorAll(".close-modal");
 const modalAlert = document.querySelector("#alert");
-const costInventory = document.querySelector("#cost-inventory");
 let variants;
 document.querySelector('#next').addEventListener('click', () => {
     saveBtn.click()
@@ -123,16 +122,20 @@ const colorSwatchImage = getUrlParam('image');
 const designID = getUrlParam('design_id');
 const category = getUrlParam('category');
 const provider = getUrlParam('provider');
+const isDiscounted = JSON.parse(getUrlParam('discounted')) || false;
 
 let grand_total = 0;
 
 jQuery(document).ready(function(){
 
     let price_embroidery;
+    const embroideryType = $('select#embroidery-type');
+    const price_total = $('#base-price-total');
+
     //set total 
     function set_price_total(){
 
-      if($('select#embroidery-type').val() === 'flat') {
+      if(embroideryType.val() === 'flat') {
           price_embroidery = 7.5;
       } else {
           price_embroidery = 9.5;
@@ -140,175 +143,87 @@ jQuery(document).ready(function(){
       const price_shipping = parseFloat(4);
       const price_product = parseFloat(basePrice.value);
       const price_markup = parseFloat(3);
-      const price_total = $('#base-price-total');
 
       if ( window.localStorage.getItem('userType') == 'Founder' ) {
 
         price_markup = 0;
 
       }
+      
+      console.log('price_embroidery', price_embroidery);
+      console.log('price_shipping', price_shipping);
+      console.log('price_product', price_product);
+      console.log('price_markup', price_markup);
 
       grand_total = (price_embroidery + price_shipping + price_product + price_markup).toFixed(2);
-      if( getUrlParam('discounted') === 'false' ) {
-      price_total.html(grand_total);
-    } else {
-      price_total.html(parseFloat(grand_total)-1);
-    }
+
+      if(isDiscounted) {
+        grand_total-=1;
+        console.log('discounted grand_total', grand_total);
+        price_total.html(`${parseFloat(grand_total)} <del style='color: #c9c9c9;'>$${parseFloat(grand_total)+1}</del>`);
+      } else {
+        grand_total-=0; // this somehow convert grand_total to an integer
+        price_total.html(grand_total);
+      }
+      console.log('grand_total', grand_total);
+      
       $('#price').val((parseFloat(grand_total)+parseFloat(grand_total)*.3).toFixed(2));
-      $('#cost-inventory').val(grand_total);
-      const expected_profit = (parseFloat($('#price').val()) - parseFloat(grand_total) + 1).toFixed(2);
+
+      const expected_profit = (parseFloat($('#price').val()) - parseFloat(grand_total)).toFixed(2);
       $('#expected-profit').html(expected_profit);
 
     } // end of set_price_total()
 
-    function change_price_total(){
-      if($('select#embroidery-type').val() === 'flat') {
-        const price = parseFloat($('#price').val()) - 2;
-        $('#price').val((price).toFixed(2));
-        const expected_profit = (parseFloat($('#price').val()) - parseFloat(grand_total) + 1).toFixed(2);
-        $('#expected-profit').html(expected_profit);
-        const price_total = $('#base-price-total');
-        if( getUrlParam('discounted') === 'false' ) {
-        price_total.html((parseFloat(grand_total)).toFixed(2));
-        } else {
-          price_total.html((parseFloat(grand_total-1)).toFixed(2));
-        }
-        } else {
-          const price = parseFloat($('#price').val()) + 2;
-          $('#price').val((price).toFixed(2));
-          const expected_profit = (parseFloat($('#price').val()) - parseFloat(grand_total) + 1 - 2).toFixed(2);
-          $('#expected-profit').html(expected_profit);
-          const price_total = $('#base-price-total');
-          if( getUrlParam('discounted') === 'false' ) {
-          price_total.html((parseFloat(grand_total)+2).toFixed(2));
-          } else {
-            price_total.html((parseFloat(grand_total-1)+2).toFixed(2));
-          }
-        }
-
-    }
-
-    $('select#embroidery-type').change(function(){
-      
-      change_price_total();
-
-    }); // end of $('select#embroidery-type')
-
-
-    // $('#expected-profit').html(()).toFixed(2));
+    $('#price').keyup(function(){
+      console.log(grand_total);
+      const expected_profit = (parseFloat($('#price').val() || 0) - parseFloat(grand_total)).toFixed(2);
+      $('#expected-profit').html(expected_profit);
+    });
 
     $('#price').change(function(){
-      $(this).val( parseFloat($(this).val()).toFixed(2) );
-      if($('select#embroidery-type').val() === 'flat') {
+      $(this).val( parseFloat($(this).val() || 0).toFixed(2));
+    });
+
+    embroideryType.change(function(){
+      
+      if(embroideryType.val() === 'flat') {
+
+        grand_total -= 2
+
+        console.log(embroideryType.val());
+
         const price = parseFloat($('#price').val()) - 2;
         $('#price').val((price).toFixed(2));
-        const expected_profit = (parseFloat($('#price').val()) - parseFloat(grand_total) + 1).toFixed(2);
-        $('#expected-profit').html(expected_profit);
-        } else {
-          const price = parseFloat($('#price').val()) + 2;
-          $('#price').val((price).toFixed(2));
-          const expected_profit = (parseFloat($('#price').val()) - parseFloat(grand_total) + 1 - 2).toFixed(2);
-          $('#expected-profit').html(expected_profit);
-        }
-    });
-     
-    // publish to shopify
-    $('#publish').click(function(){
-      
-      yourDesigner.getProductDataURL(function(dataURL) {
         
-        const title = $('#title').val();
-        const descrip = tinyMCE.get('description').getContent();
-        const price = $('#price').val();
-        const image = dataURL;
-        const clean_image = image.split(',').pop();
+        const expected_profit = (parseFloat($('#price').val()) - parseFloat(grand_total)).toFixed(2);
+        $('#expected-profit').html(expected_profit);
 
-        const product_data = {
-          "product": {
-            "title": title,
-            "body_html": descrip,
-            "vendor": "Big Stitchy",
-            "product_type": "Custom Big Stitchy",
-            "metafields": [
-              {
-                "key": "stitchy_product",
-                "value": "true",
-                "value_type": "string",
-                "namespace": "global"
-              },
-              {
-                "key": "stitchy_cost",
-                "value": 30,
-                "value_type": "integer",
-                "namespace": "global"
-              }
-            ],
-            "images": [
-              {
-                "attachment": clean_image
-              }
-            ],
-            "variants": [
-              {
-                "price": price,
-                "presentment_prices": [
-                  {
-                    "price": {
-                      "currency_code": "USD",
-                      "amount": price
-                    },
-                    "compare_at_price": null
-                  }
-                ]
-              }
-            ]
-          }
+        if(isDiscounted) {
+          price_total.html(`${parseFloat(grand_total)} <del style='color: #c9c9c9;'>$${parseFloat(grand_total)+1}</del>`);
+        } else {
+          price_total.html((parseFloat(grand_total)).toFixed(2));
         }
 
+      } else {
 
-        // big stitchy api endpoint to create shopify product
-        $.ajax({
-          url: "https://api.bigstitchy.com/api/shop-products",
-          type: "POST",
-          headers: {
-            'Authorization': `Bearer ${token}`
-          },
-          data: { key: shop_token, payload: product_data },
-          success: function( data ) {
-            inventoryUpdate(data.variants[0].inventory_item_id);
-            $('.modal').addClass('show');
-            $('.modal__inner p').text('Store Product Successfully Created!');
-          },
-          error: function( data ){
-            console.log(data.responseText);
-          }
-        });
+        grand_total += 2
 
-        function inventoryUpdate( variant_id ){
+        console.log(embroideryType.val());
 
-          $.ajax({
-            url: "https://api.bigstitchy.com/api/shop-inventory-update",
-            type: "POST",
-            headers: {
-              'Authorization': `Bearer ${token}`
-            },
-            data: { key: shop_token, variant_id: variant_id, cost: costInventory.value },
-            success: function( data ) {
-              console.log(JSON.stringify(data));
-            },
-            error: function( data ){
-              console.log(data.responseText);
-            }
-          });
+        const price = parseFloat($('#price').val()) + 2;
+        $('#price').val((price).toFixed(2));
+        const expected_profit = (parseFloat($('#price').val()) - parseFloat(grand_total)).toFixed(2);
+        $('#expected-profit').html(expected_profit);
 
+        if(isDiscounted) {
+          price_total.html(`${parseFloat(grand_total)} <del style='color: #c9c9c9;'>$${parseFloat(grand_total)+1}</del>`);
+        } else {
+          price_total.html((parseFloat(grand_total)).toFixed(2));
         }
 
+      }
 
-
-      }); // end of yourDesigner.getProductDataURL(function(dataURL)
-
-    }); // end of $('$publish).click();
-
+    }); // end of embroideryType
 
     function loadProductData(){
       // style
@@ -321,8 +236,8 @@ jQuery(document).ready(function(){
             },
             success: function(style) {
                 window.localStorage.setItem('clothing-designer', JSON.stringify(style));
-                titleInput.value = style[0].title;
-                tinyMCE.activeEditor.setContent(style[0].description);
+                titleInput.value = style.title;
+                tinyMCE.activeEditor.setContent(style.description);
             }
         });
       }
@@ -472,8 +387,8 @@ jQuery(document).ready(function(){
             $('#price').val(design[0].price);
             basePriceTotal.innerHTML = design[0].cost;
             grand_total = design[0].cost;
-            costInventory.value = design[0].cost_inventory;
             variants = design[0].variants;
+
           }
           
           $('.modal').removeClass('show');
