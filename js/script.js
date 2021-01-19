@@ -150,23 +150,16 @@ jQuery(document).ready(function(){
         price_markup = 0;
 
       }
-      
-      console.log('price_embroidery', price_embroidery);
-      console.log('price_shipping', price_shipping);
-      console.log('price_product', price_product);
-      console.log('price_markup', price_markup);
 
       grand_total = (price_embroidery + price_shipping + price_product + price_markup).toFixed(2);
 
       if(isDiscounted) {
         grand_total-=1;
-        console.log('discounted grand_total', grand_total);
         price_total.html(`${parseFloat(grand_total)} <del style='color: #c9c9c9;'>$${parseFloat(grand_total)+1}</del>`);
       } else {
         grand_total-=0; // this somehow convert grand_total to an integer
         price_total.html(grand_total);
       }
-      console.log('grand_total', grand_total);
       
       $('#price').val((parseFloat(grand_total)+parseFloat(grand_total)*.3).toFixed(2));
 
@@ -176,7 +169,6 @@ jQuery(document).ready(function(){
     } // end of set_price_total()
 
     $('#price').keyup(function(){
-      console.log(grand_total);
       const expected_profit = (parseFloat($('#price').val() || 0) - parseFloat(grand_total)).toFixed(2);
       $('#expected-profit').html(expected_profit);
     });
@@ -190,8 +182,6 @@ jQuery(document).ready(function(){
       if(embroideryType.val() === 'flat') {
 
         grand_total -= 2
-
-        console.log(embroideryType.val());
 
         const price = parseFloat($('#price').val()) - 2;
         $('#price').val((price).toFixed(2));
@@ -208,8 +198,6 @@ jQuery(document).ready(function(){
       } else {
 
         grand_total += 2
-
-        console.log(embroideryType.val());
 
         const price = parseFloat($('#price').val()) + 2;
         $('#price').val((price).toFixed(2));
@@ -374,18 +362,15 @@ jQuery(document).ready(function(){
           'Authorization': `Bearer ${token}`
         },
         success: function(data) {
-          console.log(data);
           const design = data.filter(d => {
             return d.id == designID
           })
 
           // actual rendering to UI
           if(!!design) {
-            console.log(design[0]);
             localStorage.removeItem('clothing-designer')
             yourDesigner.loadProduct(design[0].product);
             titleInput.value = design[0].title;
-            console.log(tinyMCE.activeEditor);
             tinyMCE.activeEditor.setContent(design[0].description);
             $('#price').val(design[0].price);
             basePriceTotal.innerHTML = design[0].cost;
@@ -418,7 +403,6 @@ jQuery(document).ready(function(){
     //checkout button with getProduct()
     $('#checkout-button').click(function(){
         var product = yourDesigner.getProduct();
-        console.log(product);
         return false;
     });
 
