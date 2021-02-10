@@ -293,19 +293,33 @@ jQuery(document).ready(function(){
     });
     //$('.modal').removeClass('show');
 
+    let elements = [
+      {
+        type: "image",
+        source: "https://cdn.ssactivewear.com/Images/Color/82683_f_fm.jpg",
+        title: "Base",
+        parameters: {
+            draggable: false,
+            autoCenter: true,
+        }
+      }];
+
+    if (category == 'shirts') {
+      elements.push({
+        type: "image",
+        source: "images/stitchy/logo-placeholder.png",
+        title: "Logo",
+        parameters: {
+            left: 250,
+            top: 110,
+            uploadZone: true
+        }
+      });
+    }
+
     var $yourDesigner = $('#clothing-designer'), pluginOpts = {
         productsJSON: [[{
-            "elements": [{
-                "type": "image",
-                "source": "https://cdn.ssactivewear.com/Images/Color/"+colorSwatchImage+".jpg",
-                "title": "Base",
-                "parameters": {
-                    "draggable": false,
-                    "autoCenter": true,
-                    "colors": "#ededed",
-                    "price": 5
-                }
-            }]
+          elements: elements
         }]],
         designsJSON: 'json/designs.json', //see JSON folder for designs sorted in categories
         stageWidth: 400,
