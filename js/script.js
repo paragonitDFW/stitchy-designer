@@ -296,7 +296,7 @@ jQuery(document).ready(function(){
     let elements = [
       {
         type: "image",
-        source: "https://cdn.ssactivewear.com/Images/Color/82683_f_fm.jpg",
+        source: "https://cdn.ssactivewear.com/Images/Color/"+colorSwatchImage+".jpg",
         title: "Base",
         parameters: {
             draggable: false,
