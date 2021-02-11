@@ -312,7 +312,8 @@ jQuery(document).ready(function(){
         parameters: {
             left: 250,
             top: 110,
-            uploadZone: true
+            uploadZone: true,
+            uploadZoneMovable: true
         }
       });
     }
