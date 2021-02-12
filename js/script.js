@@ -94,6 +94,15 @@ document.querySelector('#manage-layers').addEventListener('click', () => {
 closeModal.forEach(closeM => {
     closeM.addEventListener('click', () => {
         modal.classList.remove('show')
+        if(modalAlert.innerHTML === "The product is successfully submitted!") {
+          window.top.postMessage(
+            JSON.stringify({
+              error: false,
+              message: 'close modal'
+            }),
+            '*'
+          );
+        }
     })
 })
 
