@@ -138,6 +138,12 @@ let grand_total = 0;
 
 jQuery(document).ready(function(){
 
+    if ( category != 'headwear' ) {
+
+      $('.embroi').hide();
+
+    }
+
     let price_embroidery;
     const embroideryType = $('select#embroidery-type');
     const price_total = $('#base-price-total');
