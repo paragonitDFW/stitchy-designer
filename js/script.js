@@ -342,6 +342,7 @@ jQuery(document).ready(function(){
         stageHeight: 400,
         editorMode: false,
         smartGuides: false,
+        allowedImageTypes: ['png'],
         fitImagesInCanvas: true,
         fonts: [
             {name: 'Helvetica'},
