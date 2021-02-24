@@ -319,7 +319,7 @@ jQuery(document).ready(function(){
         }
       }];
 
-    if (category == 'shirts') {
+    if (category == 'shirts' && 'deactivate' !== 'deactivate') {
       elements.push({
         type: "image",
         source: "images/stitchy/logo-placeholder.png",
